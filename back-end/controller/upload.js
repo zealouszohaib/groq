@@ -1,6 +1,7 @@
 const multer = require('multer');
 const path = require('path');
 const { processImageWithGroq } = require('../helper/processImageWithGroq');
+const CompanyStructure = require('../models/CompanyStructure');
 
 
 const storage = multer.diskStorage({
@@ -37,15 +38,22 @@ const uploadFile = async (req, res) => {
       const imagePath = path.join(__dirname, '..', req.file.path);
       const processedData = await processImageWithGroq(imagePath);
 
+      // Save the response to database
+      const savedStructure = await CompanyStructure.create({
+        fileName: req.file.originalname,
+        extractedData: processedData
+      });
+
       res.json({
         message: 'File uploaded and processed successfully',
+        savedStructureId: savedStructure.id,
         file: {
           originalname: req.file.originalname,
           filename: req.file.filename,
           size: req.file.size,
           path: req.file.path
         },
-        processedData: processedData
+        processedData: processedData,
       });
     } catch (error) {
       console.error('Error:', error);
