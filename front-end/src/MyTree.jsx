@@ -1,240 +1,96 @@
 import { useState } from 'react';
 import Tree from 'react-d3-tree';
 import Table from '../Table';
+import DataTable from 'react-data-table-component';
 
 
 
 
-const treeData = [{
-  "name": "Mike Stevia",
-  "attributes": {
-    "title": "Chief Executive Officer",
-    "location": "Florida"
-  },
-  "children": [
-    {
-      "name": "Alejandro Gonzalez",
-      "attributes": {
-        "title": "Chief Technology Officer",
-        "location": "New York"
-      },
-      "children": [
-        {
-          "name": "Michael Simonetti",
-          "attributes": {
-            "title": "Director of Quality Assurance",
-            "location": "Florida"
-          },
-          "children": [
-            {
-              "name": "Mark Meyer",
-              "attributes": {
-                "title": "Quality Assurance Engineer",
-                "location": "Florida"
-              }
-            },
-            {
-              "name": "Mathew Arnold",
-              "attributes": {
-                "title": "Quality Assurance Engineer",
-                "location": "Florida"
-              }
-            },
-            {
-              "name": "OPEN",
-              "attributes": {
-                "title": "Quality Assurance Engineer"
-              }
-            }
-          ]
-        },
-        {
-          "name": "Jennifer Grant",
-          "attributes": {
-            "title": "Director of Engineering",
-            "location": "California"
-          },
-          "children": [
-            {
-              "name": "Melba Cantu",
-              "attributes": {
-                "title": "Software Engineer",
-                "location": "California"
-              }
-            },
-            {
-              "name": "Gautham Ravichandran",
-              "attributes": {
-                "title": "Software Engineer",
-                "location": "California"
-              }
-            },
-            {
-              "name": "Sam Friedman",
-              "attributes": {
-                "title": "Project Manager",
-                "location": "California"
-              }
-            },
-            {
-              "name": "Clinton Gosdin",
-              "attributes": {
-                "title": "Technical Writer",
-                "location": "California"
-              }
-            }
-          ]
-        }
-      ]
+const treeData = [
+  {
+    "name": "Jonathan Patterson",
+    "attributes": {
+      "title": "Chief Executive Officer"
     },
-    {
-      "name": "Olive Chelangat",
-      "attributes": {
-        "title": "Chief Revenue Officer",
-        "location": "New York"
-      },
-      "children": [
-        {
-          "name": "Robert Clark",
-          "attributes": {
-            "title": "Vice President of Marketing",
-            "location": "Florida"
-          },
-          "children": [
-            {
-              "name": "Ross Bonner",
-              "attributes": {
-                "title": "Business Development Rep",
-                "location": "New York"
-              }
-            },
-            {
-              "name": "Jim Richter",
-              "attributes": {
-                "title": "Business Development Rep",
-                "location": "New York"
-              }
-            },
-            {
-              "name": "Janice Goodacre",
-              "attributes": {
-                "title": "Chief Revenue Officer",
-                "location": "California"
-              }
-            }
-          ]
+    "children": [
+      {
+        "name": "Adeline Palmerston",
+        "attributes": {
+          "title": "Department Manager"
         },
-        {
-          "name": "John Foster",
-          "attributes": {
-            "title": "Vice President of Sales",
-            "location": "New York"
-          },
-          "children": [
-            {
-              "name": "Dylan Becker",
-              "attributes": {
-                "title": "Inside Sales Rep",
-                "location": "New York"
-              }
+        "children": [
+          {
+            "name": "Adora Montminy",
+            "attributes": {
+              "title": "Leader Marketing"
             },
-            {
-              "name": "Katherine Jenkins",
-              "attributes": {
-                "title": "Inside Sales Rep",
-                "location": "New York"
-              }
-            },
-            {
-              "name": "Hector Reed",
-              "attributes": {
-                "title": "Inside Sales Rep",
-                "location": ""
-              }
-            },
-            {
-              "name": "OPEN",
-              "attributes": {
-                "title": "Inside Sales Rep"
-              }
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "Emily Tucker",
-      "attributes": {
-        "title": "Chief Financial Officer",
-        "location": "California"
-      },
-      "children": [
-        {
-          "name": "Timothy Bucket",
-          "attributes": {
-            "title": "Director of Accounting",
-            "location": ""
-          },
-          "children": [
-            {
-              "name": "Robert Griffin",
-              "attributes": {
-                "title": "Accountant",
-                "location": "California"
-              }
-            }
-          ]
-        },
-        {
-          "name": "Julie Adams",
-          "attributes": {
-            "title": "Vice President of Human Resources",
-            "location": "California"
-          },
-          "children": [
-            {
-              "name": "Prenay Sha",
-              "attributes": {
-                "title": "Human Resource Administrator",
-                "location": "Florida"
-              }
-            },
-            {
-              "name": "Jane Brown",
-              "attributes": {
-                "title": "Director of Human Resources",
-                "location": "California"
-              },
-              "children": [
-                {
-                  "name": "Grant Leisz",
-                  "attributes": {
-                    "title": "Human Resources Specialist",
-                    "location": "California"
-                  }
+            "children": [
+              {
+                "name": "Kimberly Nguyen",
+                "attributes": {
+                  "title": "Staff Marketing"
                 },
-                {
-                  "name": "Taylor Jones",
-                  "attributes": {
-                    "title": "Benefits Coordinator",
-                    "location": "California"
-                  }
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "name": "Calvin Jobbs",
-          "attributes": {
-            "title": "Financial Analyst",
-            "location": "Florida"
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Morgan Maxwell",
+            "attributes": {
+              "title": "Leader Productions"
+            },
+            "children": [
+              {
+                "name": "Rachelle Beaudry",
+                "attributes": {
+                  "title": "Staff Production"
+                },
+                "children": []
+              }
+            ]
           }
-        }
-      ]
-    }
-  ]
-}
+        ]
+      },
+      {
+        "name": "Alexander Aronowitz",
+        "attributes": {
+          "title": "Project Manager"
+        },
+        "children": [
+          {
+            "name": "Sebastian Bennett",
+            "attributes": {
+              "title": "Lead Engineer"
+            },
+            "children": [
+              {
+                "name": "Daniel Gallego",
+                "attributes": {
+                  "title": "Staff Engineer"
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "name": "Takehiro Kanegi",
+            "attributes": {
+              "title": "Lead Technician"
+            },
+            "children": [
+              {
+                "name": "Itsuki Takahashi",
+                "attributes": {
+                  "title": "Staff Technician"
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
 ];
 
 
@@ -260,13 +116,19 @@ const renderNode = ({ nodeDatum, toggleNode }) => (
 
 
 const flattenTree = (node, parentName = null, level = 0) => {
-  let rows = [{
+  let row = {
     name: node.name,
-    title: node.attributes?.title || '',
-    location: node.attributes?.location || '',
     parent: parentName,
-    level: level
-  }];
+    level
+  };
+
+  if (node.attributes) {
+    Object.keys(node.attributes).forEach(key => {
+      row[key] = node.attributes[key];
+    });
+  }
+
+  let rows = [row];
 
   if (node.children) {
     node.children.forEach(child => {
@@ -277,23 +139,58 @@ const flattenTree = (node, parentName = null, level = 0) => {
   return rows;
 };
 
+const generateColumns = (flatData) => {
+  const allKeys = new Set();
+  flatData.forEach(row => {
+    Object.keys(row).forEach(key => allKeys.add(key));
+  });
+
+  return Array.from(allKeys).map(key => ({
+    name: key.charAt(0).toUpperCase() + key.slice(1), // Pretty header
+    selector: row => row[key],
+    sortable: true,
+    wrap: true
+  }));
+};
+
 
 const MyTree = () => {
   const [show, setShow] = useState(false);
 
-  const flatData = treeData.map(node => flattenTree(node))
-    .flat();
+  const flatData = treeData.map(node => flattenTree(node)).flat();
+  const columns = generateColumns(flatData);
+
   return <>
-    {!show && <Table flatData={flatData} />}
+    {!show && (
+      <DataTable
+        title="Organization Table"
+        columns={columns}
+        data={flatData}
+        pagination
+        highlightOnHover
+        striped
+        dense
+      />
+    )}
 
+    {show && (
+      <div style={{ width: '100%', height: '100vh' }}>
+        <Tree
+          data={treeData}
+          orientation='vertical'
+          initialDepth={0}
+          translate={{ x: 600, y: 100 }}
+          renderCustomNodeElement={renderNode}
+          separation={{ siblings: 1.5, nonSiblings: 2.5 }}
+        />
+      </div>
+    )}
 
-    {show && <div style={{ width: '100%', height: '100vh' }}>
-      <Tree data={treeData} orientation='vertical' initialDepth={0} translate={{ x: 600, y: 100 }} renderCustomNodeElement={renderNode} separation={{ siblings: 1.5, nonSiblings: 2.5 }} />
-    </div>}
-
-    <button onClick={() => setShow(!show)}>Show Tree</button>
-
+    <button onClick={() => setShow(!show)}>
+      {show ? "Show Table" : "Show Tree"}
+    </button>
   </>
 };
+
 
 export default MyTree;
