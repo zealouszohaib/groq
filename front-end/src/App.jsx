@@ -1,15 +1,21 @@
-import { useState } from 'react'
+import { createContext, useState } from 'react'
 import './App.css'
 import Home from './Home'
 import MyTree from './MyTree'
 
+export const Context = createContext();
+
 function App() {
-  const [count, setCount] = useState(0)
+  const [id, setId] = useState(0)
 
   return (
     <>
 
-      <Home />
+      <Context.Provider value={{ id, setId }}>
+
+        <Home />
+        <MyTree/>
+      </Context.Provider>
 
       {/* <MyTree/> */}
     </>

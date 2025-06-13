@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import axios from 'axios';
 import { FiUpload, FiCheckCircle, FiAlertCircle } from 'react-icons/fi';
 import styled from 'styled-components';
+import { Context } from './App';
 
 const UploadContainer = styled.div`
   max-width: 500px;
@@ -149,6 +150,8 @@ const FileInfoItem = styled.p`
 `;
 
 const Home = () => {
+
+  const { id, setId } = useContext(Context);
   const [file, setFile] = useState(null);
   const [uploadStatus, setUploadStatus] = useState({ message: '', type: '' });
   const [uploadedFile, setUploadedFile] = useState(null);
@@ -183,6 +186,9 @@ const Home = () => {
 
       setUploadStatus({ message: 'File uploaded successfully!', type: 'success' });
       setUploadedFile(response.data.file);
+
+      console.log(response.data.savedStructureId);
+      setId(response.data.savedStructureId);
       console.log(response);
     } catch (error) {
       console.error('Error uploading file:', error);
