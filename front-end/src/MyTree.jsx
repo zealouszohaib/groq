@@ -1,97 +1,16 @@
-import { useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import Tree from 'react-d3-tree';
 import Table from '../Table';
 import DataTable from 'react-data-table-component';
+import { Context } from './App';
+import axios from 'axios';
 
 
 
 
-const treeData = [
-  {
-    "name": "Jonathan Patterson",
-    "attributes": {
-      "title": "Chief Executive Officer"
-    },
-    "children": [
-      {
-        "name": "Adeline Palmerston",
-        "attributes": {
-          "title": "Department Manager"
-        },
-        "children": [
-          {
-            "name": "Adora Montminy",
-            "attributes": {
-              "title": "Leader Marketing"
-            },
-            "children": [
-              {
-                "name": "Kimberly Nguyen",
-                "attributes": {
-                  "title": "Staff Marketing"
-                },
-                "children": []
-              }
-            ]
-          },
-          {
-            "name": "Morgan Maxwell",
-            "attributes": {
-              "title": "Leader Productions"
-            },
-            "children": [
-              {
-                "name": "Rachelle Beaudry",
-                "attributes": {
-                  "title": "Staff Production"
-                },
-                "children": []
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "name": "Alexander Aronowitz",
-        "attributes": {
-          "title": "Project Manager"
-        },
-        "children": [
-          {
-            "name": "Sebastian Bennett",
-            "attributes": {
-              "title": "Lead Engineer"
-            },
-            "children": [
-              {
-                "name": "Daniel Gallego",
-                "attributes": {
-                  "title": "Staff Engineer"
-                },
-                "children": []
-              }
-            ]
-          },
-          {
-            "name": "Takehiro Kanegi",
-            "attributes": {
-              "title": "Lead Technician"
-            },
-            "children": [
-              {
-                "name": "Itsuki Takahashi",
-                "attributes": {
-                  "title": "Staff Technician"
-                },
-                "children": []
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  }
-];
+
+
+
 
 
 const renderNode = ({ nodeDatum, toggleNode }) => (
@@ -155,22 +74,73 @@ const generateColumns = (flatData) => {
 
 
 const MyTree = () => {
+
+  const [treeData, setTreeData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const { id, setId } = useContext(Context);
   const [show, setShow] = useState(false);
+  const [filterText, setFilterText] = useState('');
+
+  useEffect(() => {
+    const fetchCompany = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        const response = await axios.get(`http://localhost:3000/api/company/${id}`);
+        const processedData = response.data.data.extractedData || {};
+        console.log(response.data.data.extractedData
+        )
+        console.log(processedData)
+        setTreeData(Array.isArray(processedData) ? processedData : [processedData]);
+      } catch (err) {
+        setError(err.message || 'Failed to fetch company data');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (id) {
+      fetchCompany();
+    }
+  }, [id]);
+
+
+  if (loading) return <div className="loading">Loading...</div>;
+  if (error) return <div className="error">Error: {error}</div>;
+  if (!treeData.length) return <div>No data available</div>;
+
 
   const flatData = treeData.map(node => flattenTree(node)).flat();
   const columns = generateColumns(flatData);
 
+  const filteredData = flatData.filter(row =>
+    Object.values(row)
+      .join(' ')
+      .toLowerCase()
+      .includes(filterText.toLowerCase())
+  );
+
   return <>
     {!show && (
-      <DataTable
-        title="Organization Table"
-        columns={columns}
-        data={flatData}
-        pagination
-        highlightOnHover
-        striped
-        dense
-      />
+      <>
+        <input
+          type="text"
+          placeholder="Search"
+          value={filterText}
+          onChange={e => setFilterText(e.target.value)}
+          style={{ marginBottom: '10px', padding: '5px', width: '200px' }}
+        />
+        <DataTable
+          title="Organization Table"
+          columns={columns}
+          data={filteredData}
+          pagination
+          highlightOnHover
+          striped
+          dense
+        />
+      </>
     )}
 
     {show && (
