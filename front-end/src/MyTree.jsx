@@ -1,16 +1,8 @@
-import { useContext, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import Tree from 'react-d3-tree';
-import Table from '../Table';
 import DataTable from 'react-data-table-component';
-import { Context } from './App';
 import axios from 'axios';
-
-
-
-
-
-
-
 
 
 const renderNode = ({ nodeDatum, toggleNode }) => (
@@ -78,7 +70,7 @@ const MyTree = () => {
   const [treeData, setTreeData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const { id, setId } = useContext(Context);
+  const { id } = useParams();
   const [show, setShow] = useState(false);
   const [filterText, setFilterText] = useState('');
 

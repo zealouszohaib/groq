@@ -2,7 +2,6 @@ import React, { useContext, useState } from 'react';
 import axios from 'axios';
 import { FiUpload, FiCheckCircle, FiAlertCircle } from 'react-icons/fi';
 import styled from 'styled-components';
-import { Context } from './App';
 import { useNavigate } from 'react-router-dom';
 
 const UploadContainer = styled.div`
@@ -152,7 +151,6 @@ const FileInfoItem = styled.p`
 
 const Home = () => {
   const navigate = useNavigate();
-  const { id, setId } = useContext(Context);
   const [file, setFile] = useState(null);
   const [uploadStatus, setUploadStatus] = useState({ message: '', type: '' });
   const [uploadedFile, setUploadedFile] = useState(null);
@@ -189,11 +187,9 @@ const Home = () => {
       setUploadedFile(response.data.file);
 
       console.log(response.data.savedStructureId);
-      setId(response.data.savedStructureId);
-      console.log(response);
 
-      // Navigate to tree view after successful upload
-      navigate('/tree');
+      // Navigate to tree view after successful upload, passing id as param
+      navigate(`/tree/${response.data.savedStructureId}`);
     } catch (error) {
       console.error('Error uploading file:', error);
       const errorMessage = error.response?.data?.error || 'Upload failed. Please try again.';
