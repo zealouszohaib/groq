@@ -1,8 +1,10 @@
 const { Groq } = require('groq-sdk');
 const fs = require('fs');
+const dotenv=require ('dotenv')
+dotenv.config()
 
 
-const groq = new Groq({ apiKey: "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" });
+const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
 async function processImageWithGroq(imagePath) {
   try {
