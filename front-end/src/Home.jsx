@@ -186,7 +186,6 @@ const Home = () => {
       setUploadStatus({ message: 'File uploaded successfully!', type: 'success' });
       setUploadedFile(response.data.file);
 
-      console.log(response.data.savedStructureId);
 
       // Navigate to tree view after successful upload, passing id as param
       navigate(`/tree/${response.data.savedStructureId}`);

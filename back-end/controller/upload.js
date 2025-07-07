@@ -57,7 +57,7 @@ const uploadFile = async (req, res) => {
       });
     } catch (error) {
       console.error('Error:', error);
-      res.status(500).json({ error: 'Error processing image with Groq' });
+      res.status(500).json({ error: 'Error processing image with Groq or invalid Image' });
     }
   });
 };

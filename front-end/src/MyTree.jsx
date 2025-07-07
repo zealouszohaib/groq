@@ -81,9 +81,7 @@ const MyTree = () => {
         setError(null);
         const response = await axios.get(`http://localhost:3000/api/company/${id}`);
         const processedData = response.data.data.extractedData || {};
-        console.log(response.data.data.extractedData
-        )
-        console.log(processedData)
+       
         setTreeData(Array.isArray(processedData) ? processedData : [processedData]);
       } catch (err) {
         setError(err.message || 'Failed to fetch company data');

@@ -1,6 +1,6 @@
 const { Groq } = require('groq-sdk');
 const fs = require('fs');
-const dotenv=require ('dotenv')
+const dotenv = require('dotenv')
 dotenv.config()
 
 
@@ -19,36 +19,34 @@ async function processImageWithGroq(imagePath) {
           content: [
             {
               type: "text",
-              text: `Generate React-D3-Tree compatible JSON from this org chart image.
+              text: `Generate React-D3-Tree compatible JSON from this org chart image and clearly see the nodes and edges and truly give data
+                      Requirements:
+                      - Each node must have:
+                        - "name"
+                        - "attributes": { key-value pairs shown in the chart (title, location, etc.) }
+                        - "children": array of subordinates
+                      - If multiple roots: wrap in { "name": "Start", "children": [...] }
+                      - Ensure output is valid JSON (all braces & brackets closed)
 
-Requirements:
-- Each node must have:
-  - "name"
-  - "attributes": { key-value pairs shown in the chart (title, location, etc.) }
-  - "children": array of subordinates
-- If multiple roots: wrap in { "name": "Start", "children": [...] }
-- Ensure output is valid JSON (all braces & brackets closed)
+                      Example format:
+                      [
+                        {
+                          "name": "Start",
+                          "children": [
+                            {
+                              "name": "John Doe",
+                              "attributes": {
+                                "title": "CEO",
+                                "location": "NY"
+                              },
+                              "children": [] 
+                              ans soon
+                            }
+                          ]
+                        }
+                      ]
 
-Example format:
-[
-  {
-    "name": "Start",
-    "children": [
-      {
-        "name": "John Doe",
-        "attributes": {
-          "title": "CEO",
-          "location": "NY"
-        },
-        "children": [] 
-        ans soon
-      }
-    ]
-  }
-]
-
-IMPORTANT: Return JSON only. No extra text or comments.
-`
+                      IMPORTANT: Return JSON only. No extra text or comments.`
             },
             {
               type: "image_url",
@@ -68,7 +66,6 @@ IMPORTANT: Return JSON only. No extra text or comments.
     });
 
     let raw = chatCompletion.choices[0].message.content;
-    console.log('Raw Groq response:', raw);
 
     // Remove markdown formatting and any potential whitespace
     raw = raw.replace(/```json|```/g, '').trim();
